@@ -5,40 +5,10 @@ use std::io::process::InheritFd;
 fn main() {
     let dst = Path::new(os::getenv("OUT_DIR").unwrap());
 
-    init();
-    submodule_init();
-    submodule_update();
     configure();
     build();
     install(&dst);
     println!("cargo:rustc-flags=-L {} -l termbox:static", dst.join("lib").display());
-}
-
-fn init() {
-    let mut cmd = git();
-    cmd.arg("init");
-    run(&mut cmd);
-}
-
-fn submodule_init() {
-    let mut cmd = git();
-    cmd.arg("submodule");
-    cmd.arg("init");
-    run(&mut cmd);
-}
-
-fn submodule_update() {
-    let mut cmd = git();
-    cmd.arg("submodule");
-    cmd.arg("update");
-    run(&mut cmd);
-}
-
-fn git() -> Command {
-    let cargo_dir = Path::new(os::getenv("CARGO_MANIFEST_DIR").unwrap());
-    let mut cmd = Command::new("git");
-    cmd.cwd(&cargo_dir);
-    cmd
 }
 
 fn configure() {
