@@ -8,4 +8,4 @@ authors = [
 ]
 
 links = "termbox"
-build = "src/build.rs"
+build = "build.rs"
