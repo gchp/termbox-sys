@@ -1,17 +1,15 @@
 [package]
 
 name = "termbox-sys"
-version = "0.0.2"
+version = "0.1.0"
 authors = [
     "Greg Chapple <gregchapple1@gmail.com>",
     "Tom Jakubowski <tom@crystae.net>"
 ]
 
-description = "Low level bindings for the termbox library"
-keywords = ["termbox", "terminal", "gui"]
-homepage = "https://github.com/gchp/termbox-sys"
-repository = "https://github.com/gchp/termbox-sys"
-readme = "README.md"
-license = "MIT"
 links = "termbox"
 build = "build.rs"
+
+[lib]
+name = "termbox-sys"
+path = "lib.rs"
