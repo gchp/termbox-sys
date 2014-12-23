@@ -9,6 +9,10 @@ authors = [
 
 links = "termbox"
 build = "build.rs"
+license = "MIT"
+description = "Low level bindings for the termbox library"
+repository = "https://github.com/gchp/termbox-sys"
+homepage = "https://github.com/gchp/termbox-sys"
 
 [lib]
 name = "termbox-sys"
