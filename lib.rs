@@ -3,7 +3,7 @@ extern crate libc;
 use libc::{c_int, c_uint};
 
 #[repr(C)]
-#[deriving(Copy)]
+#[derive(Copy)]
 pub struct RawEvent {
     pub etype: u8,
     pub emod: u8,
