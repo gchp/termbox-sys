@@ -1,3 +1,4 @@
+#![allow(unstable)]
 extern crate libc;
 
 use libc::{c_int, c_uint};
