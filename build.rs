@@ -5,31 +5,21 @@ use std::old_io::process::InheritFd;
 fn main() {
     let dst = Path::new(os::getenv("OUT_DIR").unwrap());
 
-    setup();
+    submodule("init");
+    submodule("update");
     configure();
     build();
     install(&dst);
-    clean();
     println!("cargo:rustc-flags=-L {} -l termbox:static", dst.join("lib").display());
 }
 
-fn setup() {
+fn submodule(sub_cmd: &'static str) {
     let mut cmd = Command::new("git");
-    cmd.arg("clone");
-    cmd.arg("https://github.com/nsf/termbox");
-    cmd.arg(".termbox");
+    cmd.arg("submodule");
+    cmd.arg(sub_cmd);
     let cargo_dir = Path::new(os::getenv("CARGO_MANIFEST_DIR").unwrap());
     cmd.cwd(&cargo_dir);
 
-    run(&mut cmd);
-}
-
-fn clean() {
-    let mut cmd = Command::new("rm");
-    cmd.arg("-rf");
-    cmd.arg(".termbox");
-    let cargo_dir = Path::new(os::getenv("CARGO_MANIFEST_DIR").unwrap());
-    cmd.cwd(&cargo_dir);
     run(&mut cmd);
 }
 
@@ -71,7 +61,7 @@ fn install(dst: &Path) {
 
 fn waf() -> Command {
     let cargo_dir = Path::new(os::getenv("CARGO_MANIFEST_DIR").unwrap());
-    let termbox_dir = cargo_dir.join(".termbox");
+    let termbox_dir = cargo_dir.join("termbox");
     let mut cmd = Command::new("./waf");
     cmd.cwd(&termbox_dir);
     cmd
