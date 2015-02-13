@@ -8,7 +8,7 @@ use std::old_io::Command;
 use std::old_io::process::InheritFd;
 
 fn main() {
-    let dst = Path::new(env::var_string("OUT_DIR").unwrap());
+    let dst = Path::new(env::var("OUT_DIR").unwrap());
 
     setup();
     configure();
@@ -23,7 +23,7 @@ fn setup() {
     cmd.arg("clone");
     cmd.arg("https://github.com/nsf/termbox");
     cmd.arg(".termbox");
-    let cargo_dir = Path::new(env::var_string("CARGO_MANIFEST_DIR").unwrap());
+    let cargo_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
     cmd.cwd(&cargo_dir);
 
     run(&mut cmd);
@@ -33,7 +33,7 @@ fn clean() {
     let mut cmd = Command::new("rm");
     cmd.arg("-rf");
     cmd.arg(".termbox");
-    let cargo_dir = Path::new(env::var_string("CARGO_MANIFEST_DIR").unwrap());
+    let cargo_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
     cmd.cwd(&cargo_dir);
     run(&mut cmd);
 }
@@ -43,7 +43,7 @@ fn configure() {
     cmd.arg("configure");
     cmd.arg("--prefix=/");
 
-    let target = env::var_string("TARGET").unwrap();
+    let target = env::var("TARGET").unwrap();
     let mut cflags;
     if target.as_slice().contains("i686") {
         cflags = "-m32"
@@ -75,7 +75,7 @@ fn install(dst: &Path) {
 }
 
 fn waf() -> Command {
-    let cargo_dir = Path::new(env::var_string("CARGO_MANIFEST_DIR").unwrap());
+    let cargo_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
     let termbox_dir = cargo_dir.join(".termbox");
     let mut cmd = Command::new("./waf");
     cmd.cwd(&termbox_dir);
