@@ -1,7 +1,7 @@
 [package]
 
 name = "termbox-sys"
-version = "0.1.8"
+version = "0.1.9"
 authors = [
     "Greg Chapple <gregchapple1@gmail.com>",
     "Tom Jakubowski <tom@crystae.net>"
