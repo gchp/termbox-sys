@@ -12,6 +12,8 @@ pub struct RawEvent {
     pub ch: u32,
     pub w: i32,
     pub h: i32,
+    pub x: i32,
+    pub y: i32,
 }
 
 extern "C" {
