@@ -1,7 +1,7 @@
-#![feature(io)]
 #![feature(env)]
-#![feature(path)]
 #![feature(core)]
+#![feature(old_io)]
+#![feature(old_path)]
 
 use std::env;
 use std::old_io::Command;
