@@ -1,14 +1,12 @@
-#![feature(env)]
 #![feature(core)]
-#![feature(old_io)]
-#![feature(old_path)]
 
 use std::env;
-use std::old_io::Command;
-use std::old_io::process::InheritFd;
+use std::path::Path;
+use std::process::{Stdio, Command};
 
 fn main() {
-    let dst = Path::new(env::var("OUT_DIR").unwrap());
+    let out_dir = env::var("OUT_DIR").unwrap();
+    let dst = Path::new(out_dir.as_slice());
 
     setup();
     configure();
@@ -23,8 +21,9 @@ fn setup() {
     cmd.arg("clone");
     cmd.arg("https://github.com/nsf/termbox");
     cmd.arg(".termbox");
-    let cargo_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
-    cmd.cwd(&cargo_dir);
+    let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let cargo_dir = Path::new(manifest_dir.as_slice());
+    cmd.current_dir(&cargo_dir);
 
     run(&mut cmd);
 }
@@ -33,8 +32,9 @@ fn clean() {
     let mut cmd = Command::new("rm");
     cmd.arg("-rf");
     cmd.arg(".termbox");
-    let cargo_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
-    cmd.cwd(&cargo_dir);
+    let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let cargo_dir = Path::new(manifest_dir.as_slice());
+    cmd.current_dir(&cargo_dir);
     run(&mut cmd);
 }
 
@@ -75,17 +75,18 @@ fn install(dst: &Path) {
 }
 
 fn waf() -> Command {
-    let cargo_dir = Path::new(env::var("CARGO_MANIFEST_DIR").unwrap());
+    let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
+    let cargo_dir = Path::new(manifest_dir.as_slice());
     let termbox_dir = cargo_dir.join(".termbox");
     let mut cmd = Command::new("./waf");
-    cmd.cwd(&termbox_dir);
+    cmd.current_dir(&termbox_dir);
     cmd
 }
 
 fn run(cmd: &mut Command) {
     println!("running: {:?}", cmd);
-    assert!(cmd.stdout(InheritFd(1))
-                .stderr(InheritFd(2))
+    assert!(cmd.stdout(Stdio::inherit())
+                .stderr(Stdio::inherit())
                 .status()
                 .unwrap()
                 .success());
