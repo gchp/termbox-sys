@@ -15,5 +15,5 @@ repository = "https://github.com/gchp/termbox-sys"
 homepage = "https://github.com/gchp/termbox-sys"
 
 [lib]
-name = "termbox-sys"
+name = "termbox_sys"
 path = "lib.rs"
