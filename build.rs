@@ -13,7 +13,7 @@ fn main() {
     build();
     install(&dst);
     clean();
-    println!("cargo:rustc-flags=-L {} -l termbox:static", dst.join("lib").display());
+    println!("cargo:rustc-flags=-L {} -l static=termbox", dst.join("lib").display());
 }
 
 fn setup() {
