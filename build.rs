@@ -1,12 +1,10 @@
-#![feature(core)]
-
 use std::env;
 use std::path::Path;
 use std::process::{Stdio, Command};
 
 fn main() {
     let out_dir = env::var("OUT_DIR").unwrap();
-    let dst = Path::new(out_dir.as_slice());
+    let dst = Path::new(&out_dir);
 
     setup();
     configure();
@@ -22,7 +20,7 @@ fn setup() {
     cmd.arg("https://github.com/nsf/termbox");
     cmd.arg(".termbox");
     let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
-    let cargo_dir = Path::new(manifest_dir.as_slice());
+    let cargo_dir = Path::new(&manifest_dir);
     cmd.current_dir(&cargo_dir);
 
     run(&mut cmd);
@@ -33,7 +31,7 @@ fn clean() {
     cmd.arg("-rf");
     cmd.arg(".termbox");
     let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
-    let cargo_dir = Path::new(manifest_dir.as_slice());
+    let cargo_dir = Path::new(&manifest_dir);
     cmd.current_dir(&cargo_dir);
     run(&mut cmd);
 }
@@ -45,9 +43,9 @@ fn configure() {
 
     let target = env::var("TARGET").unwrap();
     let mut cflags;
-    if target.as_slice().contains("i686") {
+    if target.contains("i686") {
         cflags = "-m32"
-    } else if target.as_slice().contains("x86_64") {
+    } else if target.contains("x86_64") {
         cflags = "-m64 -fPIC"
     } else {
         cflags = ""
@@ -76,7 +74,7 @@ fn install(dst: &Path) {
 
 fn waf() -> Command {
     let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
-    let cargo_dir = Path::new(manifest_dir.as_slice());
+    let cargo_dir = Path::new(&manifest_dir);
     let termbox_dir = cargo_dir.join(".termbox");
     let mut cmd = Command::new("./waf");
     cmd.current_dir(&termbox_dir);
