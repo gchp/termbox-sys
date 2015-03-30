@@ -1,4 +1,3 @@
-#![feature(libc)]
 extern crate libc;
 
 use libc::c_int;
