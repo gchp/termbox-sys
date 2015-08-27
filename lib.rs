@@ -1,6 +1,4 @@
-extern crate libc;
-
-use libc::{
+use std::os::raw::{
     c_char,
     c_int,
 };
