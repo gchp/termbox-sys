@@ -39,8 +39,8 @@ extern "C" {
     pub fn tb_cell_buffer() -> *mut RawCell;
     pub fn tb_select_input_mode(mode: c_int) -> c_int;
     pub fn tb_select_output_mode(mode: c_int) -> c_int;
-    pub fn tb_peek_event(ev: *const ::RawEvent, timeout: c_int) -> c_int;
-    pub fn tb_poll_event(ev: *const ::RawEvent) -> c_int;
+    pub fn tb_peek_event(ev: *mut RawEvent, timeout: c_int) -> c_int;
+    pub fn tb_poll_event(ev: *mut RawEvent) -> c_int;
     pub fn tb_utf8_char_length(c: c_char) -> c_int;
     pub fn tb_utf8_char_to_unicode(out: *mut u32, c: *const c_char) -> c_int;
     pub fn tb_utf8_unicode_to_char(out: *mut c_char, c: u32) -> c_int;
