@@ -48,7 +48,7 @@ fn configure() {
     } else if target.contains("x86_64") {
         cflags = "-m64 -fPIC"
     } else {
-        cflags = ""
+        cflags = "-fPIC"
     }
     println!("waf configure: setting CFLAGS to: `{}`", cflags);
     env::set_var("CFLAGS", cflags);
