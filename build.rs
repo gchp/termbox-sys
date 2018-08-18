@@ -6,6 +6,7 @@ fn main() {
     let out_dir = env::var("OUT_DIR").unwrap();
     let dst = Path::new(&out_dir);
 
+    clean();
     setup();
     configure();
     build();
