@@ -42,6 +42,7 @@ fn configure() {
     let mut cmd = waf();
     cmd.arg("configure");
     cmd.arg("--prefix=/");
+    cmd.arg("--libdir=/lib");
 
     let target = env::var("TARGET").unwrap();
     let mut cflags;
