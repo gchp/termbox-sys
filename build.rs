@@ -1,4 +1,5 @@
 use std::env;
+use std::fs;
 use std::path::Path;
 use std::process::{Stdio, Command};
 
@@ -78,7 +79,8 @@ fn waf() -> Command {
     let manifest_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
     let cargo_dir = Path::new(&manifest_dir);
     let termbox_dir = cargo_dir.join(".termbox");
-    let mut cmd = Command::new("./waf");
+    let waf_file = fs::canonicalize(&termbox_dir.join("waf")).expect("Invalid location of waf file");
+    let mut cmd = Command::new(waf_file);
     cmd.current_dir(&termbox_dir);
     cmd
 }
