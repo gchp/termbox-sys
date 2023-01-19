@@ -81,7 +81,8 @@ fn waf() -> Command {
     let cargo_dir = Path::new(&manifest_dir);
     let termbox_dir = cargo_dir.join(".termbox");
     let waf_file = fs::canonicalize(&termbox_dir.join("waf")).expect("Invalid location of waf file");
-    let mut cmd = Command::new(waf_file);
+    let mut cmd = Command::new("/usr/bin/python2");
+    cmd.arg(waf_file);
     cmd.current_dir(&termbox_dir);
     cmd
 }
